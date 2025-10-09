@@ -9,14 +9,12 @@ const MachineOverview: React.FC = () => {
   const [selectedMachine, setSelectedMachine] = useState<Machine | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const itemsPerPage = 6;
-  const totalPages = 120;
+  const itemsPerPage = 4;
 
-  // Generate all machines for demonstration
-  const allMachines: Machine[] = Array(totalPages * itemsPerPage).fill(null).map((_, i) => ({
+  const allMachines: Machine[] = Array(25).fill(null).map((_, i) => ({
     id: `${i + 1}`,
-    image: '',
-    title: 'Atlas Copco QAS60 Stromerzeuger 60 kVA schalledämpft',
+    image: '/image 7.png',
+    title: 'Atlas Copco QAS60 Stromerzeuger 60 kVA',
     subgroup: '11607',
     boelsNr: '116070485',
     serienNr: 'ESF403192',
@@ -27,7 +25,8 @@ const MachineOverview: React.FC = () => {
     status: ['available', 'maintenance', 'rented'][i % 3] as 'available' | 'maintenance' | 'rented'
   }));
 
-  // Get machines for the current page
+    const totalPages = Math.ceil(allMachines.length / itemsPerPage);
+
   const getCurrentPageMachines = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -50,42 +49,38 @@ const MachineOverview: React.FC = () => {
   };
 
   return (
-    <div className="max-h-screen">
-      <div className="flex">
-        {/* Main Content */}
-        <main className="flex-1 p-4 lg:p-6 max-h-screen">
-          {currentView === 'overview' ? (
-            <>
-              <div className="mb-6">
-                <h2 className="text-xl font-bold mb-4">Overview</h2>
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-                  {getCurrentPageMachines().map((machine) => (
-                    <MachineCard
-                      key={machine.id}
-                      machine={machine}
-                      onClick={() => handleCardClick(machine)}
-                    />
-                  ))}
-                </div>
-              </div>
+    <div className="max-h-screen flex flex-col relative">
+  {currentView === 'overview' ? (
+    <>
+      {/* Cards Section */}
+      <div className="flex-1 mb-6">
+        <h2 className="text-[1.75rem] font-bold mb-4">Overview</h2>
 
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-              />
-            </>
-          ) : (
-            selectedMachine && (
-              <MachineDetail
-                machine={selectedMachine}
-                onBack={handleBack}
-              />
-            )
-          )}
-        </main>
+        <div className="grid grid-cols-1 gap-2">
+          {getCurrentPageMachines().map((machine) => (
+            <MachineCard
+              key={machine.id}
+              machine={machine}
+              onClick={() => handleCardClick(machine)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* Pagination at bottom */}
+      <div className="mt-auto">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
+    </>
+  ) : (
+    selectedMachine && <MachineDetail machine={selectedMachine} onBack={handleBack} />
+  )}
+</div>
+
   );
 };
 
