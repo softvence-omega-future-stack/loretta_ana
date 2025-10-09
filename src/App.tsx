@@ -1,13 +1,12 @@
-import Navbar from "./layout/Navbar";
-import Footer from "./layout/Footer";
 import Layout from "./layout/Layout";
+import MachineOverview from "./pages/machine/MachineOverview";
 
 const App = () => {
   return (
     <div>
-      <Navbar />
-      <Layout />
-      <Footer />
+      <Layout >
+          <MachineOverview />
+      </Layout>
     </div>
   );
 };
