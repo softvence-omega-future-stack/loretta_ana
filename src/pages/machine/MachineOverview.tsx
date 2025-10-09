@@ -50,10 +50,10 @@ const MachineOverview: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="max-h-screen">
       <div className="flex">
         {/* Main Content */}
-        <main className="flex-1 p-4 lg:p-6 min-h-screen">
+        <main className="flex-1 p-4 lg:p-6 max-h-screen">
           {currentView === 'overview' ? (
             <>
               <div className="mb-6">
