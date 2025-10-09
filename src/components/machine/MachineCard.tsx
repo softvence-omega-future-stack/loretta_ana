@@ -35,7 +35,7 @@ const MachineCard: React.FC<MachineCardProps> = ({ machine, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded shadow hover:shadow-md transition-shadow cursor-pointer p-4"
+      className="hover:shadow-lg transition-shadow cursor-pointer p-4 rounded-xl border border-gray-200 bg-[#F4F6F8] shadow-xs hover:border-[#FFA96E]"
     >
       <div className="flex gap-4">
         <div className="w-32 h-32 bg-orange-500 rounded flex-shrink-0"></div>
