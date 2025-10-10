@@ -50,7 +50,7 @@ const App = () => {
           }}
           navigate={navigate}
         />
-        <main className="flex-1 overflow-auto">
+        <main className="flex-1 overflow-auto mb-6">
           <Wrapper>
             <ViewRouter path={location.pathname} />
           </Wrapper>
