@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Search, Menu, ChevronDown, LogOut } from "lucide-react";
 import Dropdown from "../common/dropdown/Dropdown";
 import NAVIGATION_CONFIG, { type ViewType } from "../components/config/navigationConfig";
@@ -16,14 +16,19 @@ const Navbar: React.FC<NavbarProps> = ({
   onModuleChange,
   navigate,
 }) => {
+  // single state to track which dropdown is open
+  const [openDropdown, setOpenDropdown] = useState<"module" | "user" | null>(null);
+
   const handleModuleSelect = (module: ViewType) => {
     onModuleChange(module);
     const firstView = NAVIGATION_CONFIG[module].sidebar.sections[0].items[0].view;
-    navigate(`/${module}/${firstView}`); // navigate to first view of selected module
+    navigate(`/${module}/${firstView}`);
+    setOpenDropdown(null); // close dropdown after selection
   };
 
   const handleLogout = () => {
-    navigate("/login"); // navigate to login page
+    navigate("/login");
+    setOpenDropdown(null);
   };
 
   return (
@@ -41,10 +46,19 @@ const Navbar: React.FC<NavbarProps> = ({
         <div className="hidden sm:block">
           <Dropdown
             trigger={
-              <button className="flex items-center gap-2 bg-gray-700 px-4 py-2 rounded text-sm hover:bg-gray-600 transition">
+              <button
+                className="flex items-center gap-2 bg-gray-700 px-4 py-2 rounded text-sm hover:bg-gray-600 transition"
+                onClick={() =>
+                  setOpenDropdown(openDropdown === "module" ? null : "module")
+                }
+              >
                 <span>{NAVIGATION_CONFIG[currentModule].label}</span>
                 <ChevronDown size={16} />
               </button>
+            }
+            isOpen={openDropdown === "module"}
+            onToggle={() =>
+              setOpenDropdown(openDropdown === "module" ? null : "module")
             }
           >
             {Object.entries(NAVIGATION_CONFIG).map(([key, config]) => (
@@ -80,6 +94,10 @@ const Navbar: React.FC<NavbarProps> = ({
       {/* Right section: user dropdown */}
       <Dropdown
         align="right"
+        isOpen={openDropdown === "user"}
+        onToggle={() =>
+          setOpenDropdown(openDropdown === "user" ? null : "user")
+        }
         trigger={
           <button className="flex items-center gap-3 bg-gray-700 px-3 py-1.5 rounded-md hover:bg-gray-600 transition text-sm">
             <div className="h-8 w-8 rounded-full bg-orange-500 flex items-center justify-center font-bold">
@@ -112,4 +130,3 @@ const Navbar: React.FC<NavbarProps> = ({
 };
 
 export default Navbar;
-
