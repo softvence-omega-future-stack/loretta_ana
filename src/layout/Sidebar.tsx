@@ -65,7 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   key={item.view}
                   onClick={() => handleNavigation(item.view)}
-                  className={`w-full text-left px-3 py-2 rounded mb-1 text-sm transition ${
+                  className={`w-full text-left px-6 py-2 rounded mb-1 text-sm transition ${
                     currentView === item.view
                       ? "bg-orange-500"
                       : "hover:bg-gray-800 text-gray-300"
