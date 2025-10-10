@@ -10,13 +10,13 @@ const MachineInfoSection: React.FC<MachineInfoSectionProps> = ({ machine }) => {
     <div className="bg-white rounded shadow p-6 mb-6">
       <div className="flex gap-6 flex-col lg:flex-row">
         {/* Left Image Section */}
-        <div className="w-full lg:w-80 h-80 bg-orange-500 rounded flex-shrink-0 flex items-center justify-center">
-          <div className="text-center">
-            <div className="w-32 h-32 bg-white rounded-full mx-auto flex items-center justify-center">
-              <span className="text-orange-500 font-bold text-2xl">Boels</span>
-            </div>
-          </div>
-        </div>
+        <div className="w-full lg:w-80 h-80 bg-white rounded flex-shrink-0 flex items-center justify-center border border-gray-200 shadow-sm">
+  <img
+    src={machine.image}
+    alt={machine.title}
+    className="max-w-full max-h-full object-contain rounded"
+  />
+</div>
 
         {/* Right Info Section */}
         <div className="flex-1">

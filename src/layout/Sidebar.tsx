@@ -1,22 +1,34 @@
 import React from "react";
 import { X } from "lucide-react";
+import NAVIGATION_CONFIG, { type ViewType } from "../components/config/navigationConfig";
 
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
-  onNavigate: (view: string) => void;
+  currentModule: ViewType;
   currentView: string;
+  onNavigate: (view: string) => void;
+  navigate: (path: string) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
   isOpen,
   onClose,
-  onNavigate,
+  currentModule,
   currentView,
+  onNavigate,
+  navigate,
 }) => {
+  const config = NAVIGATION_CONFIG[currentModule].sidebar;
+
+  const handleNavigation = (view: string) => {
+    onNavigate(view);
+    navigate(`/${currentModule}/${view}`); // navigate to selected view
+    onClose();
+  };
+
   return (
     <>
-      {/* Blur overlay for mobile */}
       {isOpen && (
         <div
           className="fixed inset-0 backdrop-blur-sm bg-black/10 z-40 lg:hidden"
@@ -24,7 +36,6 @@ const Sidebar: React.FC<SidebarProps> = ({
         />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`fixed lg:static top-0 left-0 h-screen border-r border-[#454F5B] bg-gray-900 text-white w-64 transform transition-transform duration-300 z-50 overflow-y-auto ${
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
@@ -45,62 +56,26 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         <nav className="px-3 pb-6">
-          <div className="mb-4">
-            <h3 className="text-gray-400 text-xs uppercase mb-2 px-2">
-              Machines
-            </h3>
-            <button
-              onClick={() => onNavigate("overview")}
-              className={`w-full text-left px-3 py-2 rounded mb-1 text-sm ${
-                  currentView === "overview"
-                  ? "bg-orange-500"
-                  : "hover:bg-gray-800"
-                }`}
-            >
-              Overview
-            </button>
-            <button className="w-full text-left px-3 py-2 rounded hover:bg-gray-800 mb-1 text-sm text-gray-300">
-              QR Code...
-            </button>
-          </div>
-
-          <div className="mb-4">
-            <h3 className="text-gray-400 text-xs uppercase mb-2 px-2">Seek</h3>
-            <button className="w-full text-left px-3 py-2 rounded hover:bg-gray-800 mb-1 text-sm text-gray-300">
-              Overdue
-            </button>
-            <button className="w-full text-left px-3 py-2 rounded hover:bg-gray-800 mb-1 text-sm text-gray-300">
-              Search General
-            </button>
-          </div>
-
-          <div className="mb-4">
-            <h3 className="text-gray-400 text-xs uppercase mb-2 px-2">Left</h3>
-            {[
-              "TW Manual",
-              "TechnikerTeam-A1",
-              "TW Access Data",
-              "Issue Return",
-              "Trucklimit Boels",
-              "Workshop Supplies",
-            ].map((item) => (
-              <button
-                key={item}
-                className="w-full text-left px-3 py-2 rounded hover:bg-gray-800 mb-1 text-sm text-gray-300"
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-
-          <div>
-            <h3 className="text-gray-400 text-xs uppercase mb-2 px-2">
-              Personal
-            </h3>
-            <button className="w-full text-left px-3 py-2 rounded hover:bg-gray-800 mb-1 text-sm text-gray-300">
-              My Folder
-            </button>
-          </div>
+          {config.sections.map((section, idx) => (
+            <div key={idx} className="mb-4">
+              <h3 className="text-gray-400 text-xs uppercase mb-2 px-2">
+                {section.title}
+              </h3>
+              {section.items.map((item) => (
+                <button
+                  key={item.view}
+                  onClick={() => handleNavigation(item.view)}
+                  className={`w-full text-left px-3 py-2 rounded mb-1 text-sm transition ${
+                    currentView === item.view
+                      ? "bg-orange-500"
+                      : "hover:bg-gray-800 text-gray-300"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          ))}
         </nav>
       </aside>
     </>
@@ -108,4 +83,3 @@ const Sidebar: React.FC<SidebarProps> = ({
 };
 
 export default Sidebar;
-
