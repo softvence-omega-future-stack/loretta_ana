@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ChevronLeft } from 'lucide-react';
 import MachineInfoSection from './MachineInfoSection';
 import ZugeordneteDokumenteSection from './ZugeordneteDokumenteSection';
 import type { Machine } from './types'; // Make sure to import your Machine type
@@ -31,9 +30,9 @@ const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack }) => {
       <div className="bg-gray-50 p-4 mb-6 rounded shadow">
         <button
           onClick={onBack}
-          className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 mb-3"
+          className="flex items-center justify-center gap-1 text-sm text-gray-600 hover:text-gray-900 mb-4"
         >
-          <ChevronLeft size={18} /> Back
+          <img src="/back.svg" alt="Back" className='w-6 h-6'/> Back
         </button>
         
         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
