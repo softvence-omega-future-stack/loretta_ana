@@ -43,7 +43,7 @@ const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         {/* Module Dropdown */}
-        <div className="hidden sm:block">
+        <div className="">
           <Dropdown
             trigger={
               <button
