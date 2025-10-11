@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
-import MachineInfoSection from './MachineInfoSection';
+import StammdatenTab from './machineDetails/mainTabs/StammdatenTab';
+import MotordatenTabContent from './machineDetails/mainTabs/MotordatenTabContent';
+import TechnischeDatenTabContent from './machineDetails/mainTabs/TechnischeDatenTabContent';
+import SchmierstoffeTabContent from './machineDetails/mainTabs/SchmierstoffeTabContent';
+import AnbaugerateTabContent from './machineDetails/mainTabs/AnbaugerateTabContent';
+import WartungstabelleTabContent from './machineDetails/mainTabs/WartungstabelleTabContent';
+import DokumentationTabContent from './machineDetails/mainTabs/DokumentationTabContent';
+import ZubehorTabContent from './machineDetails/mainTabs/ZubehorTabContent';
+import NotizenTabContent from './machineDetails/mainTabs/NotizenTabContent';
 import ZugeordneteDokumenteSection from './ZugeordneteDokumenteSection';
-import type { Machine } from './types'; // Make sure to import your Machine type
+import FilesTab from './machineDetails/mainTabs/FilesTab';
+
+import type { Machine } from './types';
 
 interface MachineDetailProps {
   machine: Machine;
@@ -12,45 +22,38 @@ const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack }) => {
   const [activeTab, setActiveTab] = useState('Stammdaten');
 
   const mainTabs = [
-    'Stammdaten',
-    'Motordaten', 
-    'Technische Daten',
-    'Schemamaße',
-    'Ankaupdaten',
-    'Wartungsablauf',
-    'Dokumentation',
-    'Zubehör',
-    'Notizen',
-    '😊'
+    'Stammdaten', 'Motordaten', 'Technische Daten', 'Schmierstoffe',
+    'Anbaugeräte', 'Wartungstabelle', 'Dokumentation', 'Zubehör', 'Notizen', '😊'
   ];
 
   return (
-    <div>
-      {/* Header & Tabs */}
-      <div className="bg-gray-50 p-4 mb-6 rounded shadow">
+    <div className="min-h-screen">
+      {/* Header */}
+      <div className="mb-4">
         <button
           onClick={onBack}
           className="flex items-center justify-center gap-1 text-sm text-gray-600 hover:text-gray-900 mb-4"
         >
           <img src="/back.svg" alt="Back" className='w-6 h-6'/> Back
         </button>
-        
-        <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
           <h2 className="text-xl font-bold">Boels Technikweb - Maschinen Stammdaten</h2>
-          <select className="border rounded px-3 py-1.5 text-sm bg-white">
-            <option>Document...</option>
+          <select className="border rounded px-3 py-1.5 text-sm bg-white w-full sm:w-auto">
+            <option>Dokument</option>
           </select>
         </div>
-        
-        <div className="flex gap-2 border-b border-gray-300 overflow-x-auto">
+
+        {/* Main Tabs */}
+        <div className="flex flex-wrap gap-2">
           {mainTabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2.5 text-sm whitespace-nowrap border-b-2 -mb-px ${
-                activeTab === tab 
-                  ? 'bg-orange-100 text-orange-600 border-orange-500' 
-                  : 'text-gray-700 border-transparent hover:bg-gray-100'
+              className={`px-4 py-2 text-sm whitespace-nowrap border -mb-px transition-colors rounded ${
+                activeTab === tab
+                  ? 'bg-orange-100 text-orange-600 border-orange-200 font-medium'
+                  : 'text-gray-700 bg-gray-200 border border-gray-300 hover:bg-orange-100 hover:text-orange-600 hover:border-orange-200'
               }`}
             >
               {tab}
@@ -60,20 +63,21 @@ const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack }) => {
       </div>
 
       {/* Tab Content */}
-      {activeTab === 'Stammdaten' ? (
-        <>
-          <MachineInfoSection machine={machine} />
-          <ZugeordneteDokumenteSection />
-        </>
-      ) : (
-        <div className="bg-white rounded shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-700">{activeTab} Content</h3>
-          <p className="text-gray-600 mt-2">
-            This is where the content for "{activeTab}" will be displayed.
-            You can add your custom components here later.
-          </p>
-        </div>
-      )}
+      <div className="w-full">
+        {activeTab === 'Stammdaten' && <StammdatenTab machine={machine} />}
+        {activeTab === 'Motordaten' && <MotordatenTabContent />}
+        {activeTab === 'Technische Daten' && <TechnischeDatenTabContent />}
+        {activeTab === 'Schmierstoffe' && <SchmierstoffeTabContent />}
+        {activeTab === 'Anbaugeräte' && <AnbaugerateTabContent />}
+        {activeTab === 'Wartungstabelle' && <WartungstabelleTabContent />}
+        {activeTab === 'Dokumentation' && <DokumentationTabContent />}
+        {activeTab === 'Zubehör' && <ZubehorTabContent />}
+        {activeTab === 'Notizen' && <NotizenTabContent />}
+        {activeTab === '😊' && <FilesTab />}
+      </div>
+
+      {/* Always show Zugeordnete Dokumente section */}
+      <ZugeordneteDokumenteSection />
     </div>
   );
 };

@@ -41,7 +41,7 @@ const MachineCard: React.FC<{ machine: Machine; onClick: () => void }> = ({
           <img 
             src={machine.image} 
             alt={machine.title}
-            className="max-w-full max-h-full object-contain h-24"
+            className="max-w-full max-h-full object-contain w-54 rounded"
           />
         </div>
 

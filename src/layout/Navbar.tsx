@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Search, Menu, ChevronDown, LogOut } from "lucide-react";
+import { Menu, ChevronDown, LogOut } from "lucide-react";
 import Dropdown from "../common/dropdown/Dropdown";
 import NAVIGATION_CONFIG, { type ViewType } from "../components/config/navigationConfig";
+import NavbarSearch from "@/common/navbar/NavbarSearch";
 
 interface NavbarProps {
   onMenuClick: () => void;
@@ -78,17 +79,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
       {/* Center: search input */}
       <div className="flex-1 max-w-[400px] mx-4 hidden md:block">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Suchen..."
-            className="bg-gray-700 w-full px-4 py-2 pr-10 rounded text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
-          />
-          <Search
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-            size={18}
-          />
-        </div>
+        <NavbarSearch />
       </div>
 
       {/* Right section: user dropdown */}

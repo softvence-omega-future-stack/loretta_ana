@@ -9,6 +9,7 @@ interface SidebarProps {
   currentView: string;
   onNavigate: (view: string) => void;
   navigate: (path: string) => void;
+  className?: string;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -18,6 +19,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   currentView,
   onNavigate,
   navigate,
+  className,
 }) => {
   const config = NAVIGATION_CONFIG[currentModule].sidebar;
 
@@ -31,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     <>
       {isOpen && (
         <div
-          className="fixed inset-0 backdrop-blur-sm bg-black/10 z-40 lg:hidden"
+          className={`fixed inset-0 backdrop-blur-sm bg-black/10 z-40 lg:hidden` + className}
           onClick={onClose}
         />
       )}
