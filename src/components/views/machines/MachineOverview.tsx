@@ -190,22 +190,29 @@ const MachineOverview: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full px-4 md:px-6 lg:px-8">
+    <div className="flex flex-col min-h-screen w-full p-4 border bg-white border-gray-300 rounded-md">
       {isOverview ? (
         <>
           <h2 className="text-[1.75rem] font-bold mb-6">Overview</h2>
-
-          <div className="grid grid-cols-1 gap-4 w-full">
-            {getCurrentPageMachines().map((machine) => (
-              <MachineCard
-                key={machine.id}
-                machine={machine}
-                onClick={() => handleCardClick(machine)}
-              />
+          <hr className="border-gray-300 mb-6" />
+          
+          <div className="flex flex-col w-full">
+            {getCurrentPageMachines().map((machine, index) => (
+              <React.Fragment key={machine.id}>
+                <MachineCard
+                  machine={machine}
+                  onClick={() => handleCardClick(machine)}
+                />
+                
+                {/* Horizontal line separator between cards */}
+                {index < getCurrentPageMachines().length - 1 && (
+                  <hr className="border-gray-300 my-4" />
+                )}
+              </React.Fragment>
             ))}
 
             {filteredMachines.length === 0 && (
-              <p className="text-gray-500 text-center py-6 col-span-full">
+              <p className="text-gray-500 text-center py-6">
                 No machines found for "{searchTerm}"
               </p>
             )}
