@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/redux/store";
 import MachineCard from "@/components/views components/machine/MachineCard";
 import Pagination from "@/components/views components/machine/Pagination";
 import MachineDetail from "@/components/views components/machine/MachineDetail";
@@ -8,37 +10,170 @@ import type { Machine } from "@/components/views components/machine/types";
 const MachineOverview: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const searchTerm = useSelector((state: RootState) => state.search.term);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
-  // Demo data for machines
-  const allMachines: Machine[] = Array(25)
-    .fill(null)
-    .map((_, i) => ({
-      id: `${i + 1}`,
+  const allMachines: Machine[] = [
+    {
+      id: "1",
       image: "/image 7.png",
-      title: `Atlas Copco QAS${50 + i} Stromerzeuger ${50 + i} kVA`,
-      subgroup: `1160${i + 1}`,
-      boelsNr: `11607${i + 1}85`,
-      serienNr: `ESF403${i + 1}92`,
-      ext: `67B-OvE E87${i + 1}: 09.01.2026`,
+      title: "Atlas Copco QAS80 Stromerzeuger 80 kVA",
+      subgroup: "116001",
+      boelsNr: "1160785",
+      serienNr: "ESF40392",
+      ext: "67B-OvE E8701: 09.01.2026",
       intern: "",
-      letzRuckname: `11607${i + 1}85`,
-      wichtigInform: i % 5 === 0 ? "Beschädigt !" : "",
-      status: ["available", "maintenance", "rented"][i % 3] as
-        | "available"
-        | "maintenance"
-        | "rented",
-    }));
+      letzRuckname: "1160785",
+      wichtigInform: "Beschädigt !",
+      status: "maintenance",
+    },
+    {
+      id: "2",
+      image: "/image 7.png",
+      title: "Caterpillar XQ100 Diesel Generator 100 kVA",
+      subgroup: "116002",
+      boelsNr: "1160786",
+      serienNr: "CTP50783",
+      ext: "67B-OvE E8702: 15.03.2026",
+      intern: "",
+      letzRuckname: "1160786",
+      wichtigInform: "",
+      status: "available",
+    },
+    {
+      id: "3",
+      image: "/image 7.png",
+      title: "Doosan G70 Stromaggregat 70 kVA",
+      subgroup: "116003",
+      boelsNr: "1160787",
+      serienNr: "DSN60194",
+      ext: "67B-OvE E8703: 21.04.2026",
+      intern: "",
+      letzRuckname: "1160787",
+      wichtigInform: "Wartung fällig",
+      status: "rented",
+    },
+    {
+      id: "4",
+      image: "/image 7.png",
+      title: "Honda EU65iS Benzin Generator 65 kVA",
+      subgroup: "116004",
+      boelsNr: "1160788",
+      serienNr: "HND70825",
+      ext: "67B-OvE E8704: 10.06.2026",
+      intern: "",
+      letzRuckname: "1160788",
+      wichtigInform: "",
+      status: "available",
+    },
+    {
+      id: "5",
+      image: "/image 7.png",
+      title: "Bosch PowerGen BG90 Stromerzeuger 90 kVA",
+      subgroup: "116005",
+      boelsNr: "1160789",
+      serienNr: "BSC80936",
+      ext: "67B-OvE E8705: 27.07.2026",
+      intern: "",
+      letzRuckname: "1160789",
+      wichtigInform: "Neue Batterie erforderlich",
+      status: "maintenance",
+    },
+    {
+      id: "6",
+      image: "/image 7.png",
+      title: "Yanmar YDG5500 Diesel Generator 55 kVA",
+      subgroup: "116006",
+      boelsNr: "1160790",
+      serienNr: "YMR91247",
+      ext: "67B-OvE E8706: 02.09.2026",
+      intern: "",
+      letzRuckname: "1160790",
+      wichtigInform: "",
+      status: "rented",
+    },
+    {
+      id: "7",
+      image: "/image 7.png",
+      title: "Atlas Copco QAS100 Stromerzeuger 100 kVA",
+      subgroup: "116007",
+      boelsNr: "1160791",
+      serienNr: "ACP10358",
+      ext: "67B-OvE E8707: 18.10.2026",
+      intern: "",
+      letzRuckname: "1160791",
+      wichtigInform: "Ölstand prüfen",
+      status: "maintenance",
+    },
+    {
+      id: "8",
+      image: "/image 7.png",
+      title: "Caterpillar XQ60 Diesel Generator 60 kVA",
+      subgroup: "116008",
+      boelsNr: "1160792",
+      serienNr: "CTP20469",
+      ext: "67B-OvE E8708: 05.11.2026",
+      intern: "",
+      letzRuckname: "1160792",
+      wichtigInform: "",
+      status: "available",
+    },
+    {
+      id: "9",
+      image: "/image 7.png",
+      title: "Doosan G90 Stromaggregat 90 kVA",
+      subgroup: "116009",
+      boelsNr: "1160793",
+      serienNr: "DSN30570",
+      ext: "67B-OvE E8709: 22.12.2026",
+      intern: "",
+      letzRuckname: "1160793",
+      wichtigInform: "Technische Prüfung ausstehend",
+      status: "rented",
+    },
+    {
+      id: "10",
+      image: "/image 7.png",
+      title: "Honda EP2500CX Benzin Generator 25 kVA",
+      subgroup: "116010",
+      boelsNr: "1160794",
+      serienNr: "HND40681",
+      ext: "67B-OvE E8710: 30.12.2026",
+      intern: "",
+      letzRuckname: "1160794",
+      wichtigInform: "",
+      status: "available",
+    },
+  ];
 
-  const totalPages = Math.ceil(allMachines.length / itemsPerPage);
+  // Filter by global search term
+  const filteredMachines = allMachines.filter(
+    (machine) =>
+      machine.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      machine.boelsNr.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      machine.serienNr.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
+  // const totalPages = Math.ceil(filteredMachines.length / itemsPerPage);
+
+  // const getCurrentPageMachines = () => {
+  //   const startIndex = (currentPage - 1) * itemsPerPage;
+  //   const endIndex = startIndex + itemsPerPage;
+  //   return filteredMachines.slice(startIndex, endIndex);
+  // };
+
+  const totalPages = Math.ceil(filteredMachines.length / itemsPerPage);
   const getCurrentPageMachines = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return allMachines.slice(startIndex, endIndex);
+    return filteredMachines.slice(startIndex, endIndex);
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
 
   // Determine current view and selected machine based on URL
   const pathParts = location.pathname.split("/").filter(Boolean);
@@ -49,17 +184,14 @@ const MachineOverview: React.FC = () => {
       : null;
   const selectedMachine = allMachines.find((m) => m.id === detailId);
 
-  // Card click: navigate to detail page
   const handleCardClick = (machine: Machine) => {
     navigate(`/machines/machines-overview/${machine.id}`);
   };
 
-  // Back button click: navigate to overview
   const handleBack = () => {
     navigate("/machines/machines-overview");
   };
 
-  // Pagination handler
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -69,7 +201,6 @@ const MachineOverview: React.FC = () => {
     <div className="max-h-screen flex flex-col relative">
       {isOverview ? (
         <>
-          {/* Overview Cards */}
           <div className="flex-1 mb-6">
             <h2 className="text-[1.75rem] font-bold mb-4">Overview</h2>
             <div className="grid grid-cols-1 gap-2">
@@ -80,17 +211,23 @@ const MachineOverview: React.FC = () => {
                   onClick={() => handleCardClick(machine)}
                 />
               ))}
+              {filteredMachines.length === 0 && (
+                <p className="text-gray-500 text-center py-6">
+                  No machines found for "{searchTerm}"
+                </p>
+              )}
             </div>
           </div>
 
-          {/* Pagination */}
-          <div className="mt-auto">
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
-          </div>
+          {filteredMachines.length > 0 && (
+            <div className="mt-auto">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          )}
         </>
       ) : selectedMachine ? (
         <MachineDetail machine={selectedMachine} onBack={handleBack} />

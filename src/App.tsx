@@ -25,7 +25,7 @@ const App = () => {
   }
 
   return (
-    <div className="flex max-h-screen bg-gray-100">
+    <div className="flex max-h-screen">
       <Sidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
@@ -50,7 +50,7 @@ const App = () => {
           }}
           navigate={navigate}
         />
-        <main className="flex-1 overflow-auto mb-6">
+        <main className="flex-1 overflow-auto pb-6">
           <Wrapper>
             <ViewRouter path={location.pathname} />
           </Wrapper>
