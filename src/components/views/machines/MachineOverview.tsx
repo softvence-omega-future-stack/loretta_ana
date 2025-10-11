@@ -156,14 +156,6 @@ const MachineOverview: React.FC = () => {
       machine.serienNr.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // const totalPages = Math.ceil(filteredMachines.length / itemsPerPage);
-
-  // const getCurrentPageMachines = () => {
-  //   const startIndex = (currentPage - 1) * itemsPerPage;
-  //   const endIndex = startIndex + itemsPerPage;
-  //   return filteredMachines.slice(startIndex, endIndex);
-  // };
-
   const totalPages = Math.ceil(filteredMachines.length / itemsPerPage);
   const getCurrentPageMachines = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -198,29 +190,29 @@ const MachineOverview: React.FC = () => {
   };
 
   return (
-    <div className="max-h-screen flex flex-col relative">
+    <div className="flex flex-col min-h-screen w-full px-4 md:px-6 lg:px-8">
       {isOverview ? (
         <>
-          <div className="flex-1 mb-6">
-            <h2 className="text-[1.75rem] font-bold mb-4">Overview</h2>
-            <div className="grid grid-cols-1 gap-2">
-              {getCurrentPageMachines().map((machine) => (
-                <MachineCard
-                  key={machine.id}
-                  machine={machine}
-                  onClick={() => handleCardClick(machine)}
-                />
-              ))}
-              {filteredMachines.length === 0 && (
-                <p className="text-gray-500 text-center py-6">
-                  No machines found for "{searchTerm}"
-                </p>
-              )}
-            </div>
+          <h2 className="text-[1.75rem] font-bold mb-6">Overview</h2>
+
+          <div className="grid grid-cols-1 gap-4 w-full">
+            {getCurrentPageMachines().map((machine) => (
+              <MachineCard
+                key={machine.id}
+                machine={machine}
+                onClick={() => handleCardClick(machine)}
+              />
+            ))}
+
+            {filteredMachines.length === 0 && (
+              <p className="text-gray-500 text-center py-6 col-span-full">
+                No machines found for "{searchTerm}"
+              </p>
+            )}
           </div>
 
           {filteredMachines.length > 0 && (
-            <div className="mt-auto">
+            <div className="mt-6 w-full flex justify-center">
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}

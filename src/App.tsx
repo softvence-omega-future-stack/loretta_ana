@@ -36,6 +36,7 @@ const App = () => {
           navigate(`/${currentModule}/${view}`);
         }}
         navigate={navigate}
+        className="w-screen"
       />
 
       <div className="flex-1 flex flex-col">
@@ -50,7 +51,7 @@ const App = () => {
           }}
           navigate={navigate}
         />
-        <main className="flex-1 overflow-auto pb-6">
+        <main className="flex-1 overflow-auto pb-6 bg-gray-100">
           <Wrapper>
             <ViewRouter path={location.pathname} />
           </Wrapper>
