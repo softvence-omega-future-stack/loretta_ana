@@ -95,7 +95,7 @@ const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack }) => {
 
       {/* Tab Content (Lazy Loaded) */}
       <div className="w-full">
-        <Suspense fallback={<div className="text-center py-10 text-gray-500">Loading tab...</div>}>
+        <Suspense fallback={<div className="text-center py-10 text-gray-500">Loading...</div>}>
           {activeTab === "Stammdaten" && <StammdatenTab machine={machine} />}
           {activeTab === "Motordaten" && <MotordatenTabContent />}
           {activeTab === "Technische Daten" && <TechnischeDatenTabContent />}
