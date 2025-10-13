@@ -1,22 +1,18 @@
-import { type ReactNode } from "react";
+import React from "react";
 
-interface CommonWrapperProps {
-  children: ReactNode; // Type for children (can be any valid React node)
-  className?: string; // Optional className prop
+interface WrapperProps {
+  children: React.ReactNode;
+  className?: string;
 }
 
-// Define the component
-const CommonWrapper: React.FC<CommonWrapperProps> = ({
-  children,
-  className = "",
-}) => {
+const Wrapper: React.FC<WrapperProps> = ({ children, className }) => {
   return (
-    <div
-      className={` w-full max-w-[1400px] mx-auto my-auto py-4 md:py-6 px-4 md:px-6  ${className}`}
-    >
-      {children}
+    <div className={`w-full h-full ${className}`}>
+      <div className="max-w-[1600px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6">
+        {children}
+      </div>
     </div>
   );
 };
 
-export default CommonWrapper;
+export default Wrapper;

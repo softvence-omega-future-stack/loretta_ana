@@ -8,7 +8,7 @@ import NAVIGATION_CONFIG, { type ViewType } from "@/components/config/navigation
 
 const App = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // get current URL path
+  const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentModule, setCurrentModule] = useState<ViewType>("machines");
   const [currentView, setCurrentView] = useState("overview");
@@ -25,7 +25,8 @@ const App = () => {
   }
 
   return (
-    <div className="flex max-h-screen">
+    <div className="flex h-screen overflow-hidden">
+      {/* Sidebar - Fixed height, scrollable content */}
       <Sidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
@@ -39,7 +40,9 @@ const App = () => {
         className="w-screen"
       />
 
-      <div className="flex-1 flex flex-col">
+      {/* Main content area */}
+      <div className="flex-1 flex flex-col h-screen overflow-hidden">
+        {/* Navbar - Fixed at top */}
         <Navbar
           onMenuClick={() => setSidebarOpen(true)}
           currentModule={currentModule}
@@ -51,7 +54,9 @@ const App = () => {
           }}
           navigate={navigate}
         />
-        <main className="flex-1 overflow-auto pb-6 bg-gray-100">
+        
+        {/* Scrollable main content */}
+        <main className="flex-1 overflow-y-auto bg-gray-100">
           <Wrapper>
             <ViewRouter path={location.pathname} />
           </Wrapper>
@@ -62,6 +67,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
