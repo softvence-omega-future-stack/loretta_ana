@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Menu, ChevronDown, LogOut } from "lucide-react";
-import Dropdown from "../common/dropdown/Dropdown";
+import Dropdown from "../common/dropdown/NavbarDropdown";
 import NAVIGATION_CONFIG, { type ViewType } from "../components/config/navigationConfig";
 import NavbarSearch from "@/common/navbar/NavbarSearch";
 

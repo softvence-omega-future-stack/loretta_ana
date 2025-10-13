@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
-import MachineCard from "@/components/views components/machine/MachineCard";
-import Pagination from "@/components/views components/machine/Pagination";
-import MachineDetail from "@/components/views components/machine/MachineDetail";
-import type { Machine } from "@/components/views components/machine/types";
+import type { Machine } from "@/components/views components/machine/Overview/types";
+
+// ✅ Lazy-loaded components
+const MachineCard = lazy(() =>
+  import("@/components/views components/machine/Overview/MachineCard")
+);
+const Pagination = lazy(() =>
+  import("@/components/views components/machine/Pagination")
+);
+const MachineDetail = lazy(() =>
+  import("@/components/views components/machine/Overview/MachineDetail")
+);
 
 const MachineOverview: React.FC = () => {
   const navigate = useNavigate();
@@ -13,7 +21,7 @@ const MachineOverview: React.FC = () => {
   const searchTerm = useSelector((state: RootState) => state.search.term);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
 
   const allMachines: Machine[] = [
     {
@@ -157,6 +165,7 @@ const MachineOverview: React.FC = () => {
   );
 
   const totalPages = Math.ceil(filteredMachines.length / itemsPerPage);
+
   const getCurrentPageMachines = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -190,49 +199,50 @@ const MachineOverview: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full p-4 border bg-white border-gray-300 rounded-md">
-      {isOverview ? (
-        <>
-          <h2 className="text-[1.75rem] font-bold mb-6">Overview</h2>
-          <hr className="border-gray-300 mb-6" />
-          
-          <div className="flex flex-col w-full">
-            {getCurrentPageMachines().map((machine, index) => (
-              <React.Fragment key={machine.id}>
-                <MachineCard
-                  machine={machine}
-                  onClick={() => handleCardClick(machine)}
-                />
-                
-                {/* Horizontal line separator between cards */}
-                {index < getCurrentPageMachines().length - 1 && (
-                  <hr className="border-gray-300 my-4" />
-                )}
-              </React.Fragment>
-            ))}
+    <div className="flex flex-col min-h-screen w-full p-7 sm:p-8 border bg-white border-gray-300 rounded-md">
+      <Suspense fallback={<div className="text-center py-10 text-gray-500">Loading...</div>}>
+        {isOverview ? (
+          <>
+            <h2 className="text-[1.75rem] font-bold mb-6">Overview</h2>
+            <hr className="border-gray-300 mb-6" />
+            
+            <div className="flex flex-col w-full">
+              {getCurrentPageMachines().map((machine, index) => (
+                <React.Fragment key={machine.id}>
+                  <MachineCard
+                    machine={machine}
+                    onClick={() => handleCardClick(machine)}
+                  />
+                  
+                  {index < getCurrentPageMachines().length - 1 && (
+                    <hr className="border-gray-300 my-4" />
+                  )}
+                </React.Fragment>
+              ))}
 
-            {filteredMachines.length === 0 && (
-              <p className="text-gray-500 text-center py-6">
-                No machines found for "{searchTerm}"
-              </p>
-            )}
-          </div>
-
-          {filteredMachines.length > 0 && (
-            <div className="mt-6 w-full flex justify-center">
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-              />
+              {filteredMachines.length === 0 && (
+                <p className="text-gray-500 text-center py-6">
+                  No machines found for "{searchTerm}"
+                </p>
+              )}
             </div>
-          )}
-        </>
-      ) : selectedMachine ? (
-        <MachineDetail machine={selectedMachine} onBack={handleBack} />
-      ) : (
-        <p className="text-center mt-10 text-gray-500">Machine not found</p>
-      )}
+
+            {filteredMachines.length > 0 && (
+              <div className="mt-6 w-full flex justify-center">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
+          </>
+        ) : selectedMachine ? (
+          <MachineDetail machine={selectedMachine} onBack={handleBack} />
+        ) : (
+          <p className="text-center mt-10 text-gray-500">Machine not found</p>
+        )}
+      </Suspense>
     </div>
   );
 };

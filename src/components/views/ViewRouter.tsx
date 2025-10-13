@@ -35,6 +35,7 @@
 // export default ViewRouter;
 
 import MachineOverview from "./machines/MachineOverview";
+import QRCode from "./machines/QRCode";
 
 const ViewRouter = ({ path }: { path: string }) => {
   if (path === "/login") return <p>Login View component</p>;
@@ -47,7 +48,7 @@ const ViewRouter = ({ path }: { path: string }) => {
       case "machines-overview":
         return <MachineOverview />;
       case "machines-qrcode":
-        return <p>Machine QR Code</p>;
+        return <QRCode />;
       case "machines-overdue":
         return <p>Machine Overdue</p>;
       case "machines-search":
