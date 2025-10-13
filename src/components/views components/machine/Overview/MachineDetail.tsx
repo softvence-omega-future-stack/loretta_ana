@@ -49,10 +49,6 @@ const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack }) => {
           Back
         </button>
 
-        <h2 className="text-base sm:text-lg md:text-xl font-bold text-gray-900">
-          Boels Technikweb - Maschinen Stammdaten
-        </h2>
-
         <UniversalDropdown
           trigger={
             <button className="border border-gray-300 rounded px-3 py-1.5 text-sm bg-white w-full sm:w-auto focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-nowrap">
@@ -70,6 +66,9 @@ const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack }) => {
         </UniversalDropdown>
       </div>
 
+      <h2 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-4">
+          Boels Technikweb - Maschinen Stammdaten
+        </h2>
       <hr className="border-gray-300 mb-4 sm:mb-6" />
 
       {/* Tabs */}

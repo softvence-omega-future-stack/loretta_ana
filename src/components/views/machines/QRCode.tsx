@@ -118,7 +118,7 @@ const QrCodeOverview = () => {
 
   return (
     <div className="flex flex-col min-h-screen w-full p-7 sm:p-8 border bg-white border-gray-300 rounded-md">
-      <h2 className="text-[1.75rem] font-bold mb-6">QR Code Overview</h2>
+      <h2 className="text-[1.75rem] font-bold mb-6">QR Code</h2>
       <hr className="border-gray-300 mb-6" />
 
       {/* ✅ Wrap lazy components in Suspense */}
