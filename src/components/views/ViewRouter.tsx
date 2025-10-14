@@ -1,41 +1,7 @@
-// import MachineOverview from "./machines/MachineOverview";
-// import QRCodeView from "./machines/QRCodeView";
-// import ProductionDashboard from "./production/ProductionDashboard";
-// import MaintenanceScheduled from "./maintenance/MaintenanceScheduled";
-// import InventoryStock from "./inventory/InventoryStock";
-// import ReportsDaily from "./reports/ReportsDaily";
-// import ProfileView from "./user/ProfileView";
-// import SettingsView from "./user/SettingsView";
-// import NotificationsView from "./user/NotificationsView";
-// import LoginView from "./user/LoginView";
-// import DefaultView from "./DefaultView";
-
-// const ViewRouter = ({ path }: { path: string }) => {
-//   if (path === "/login") return <LoginView />;
-//   if (path === "/profile") return <ProfileView />;
-//   if (path === "/settings") return <SettingsView />;
-//   if (path === "/notifications") return <NotificationsView />;
-
-//   const parts = path.split("/").filter(Boolean);
-//   if (parts.length >= 2) {
-//     const view = parts[1];
-//     switch (view) {
-//       case "overview": return <MachineOverview />;
-//       case "qrcode": return <QRCodeView />;
-//       case "prod-dashboard": return <ProductionDashboard />;
-//       case "maint-scheduled": return <MaintenanceScheduled />;
-//       case "inv-current": return <InventoryStock />;
-//       case "rep-daily": return <ReportsDaily />;
-//       default: return <DefaultView view={view} />;
-//     }
-//   }
-//   return <MachineOverview />;
-// };
-
-// export default ViewRouter;
-
 import MachineOverview from "./machines/MachineOverview";
+import Overdue from "./machines/Overdue";
 import QRCode from "./machines/QRCode";
+import SearchGeneral from "./machines/SearchGeneral";
 
 const ViewRouter = ({ path }: { path: string }) => {
   if (path === "/login") return <p>Login View component</p>;
@@ -50,9 +16,9 @@ const ViewRouter = ({ path }: { path: string }) => {
       case "machines-qrcode":
         return <QRCode />;
       case "machines-overdue":
-        return <p>Machine Overdue</p>;
+        return <Overdue />;
       case "machines-search":
-        return <p>Machine Search</p>;
+        return <SearchGeneral />;
       case "machines-manual":
         return <p>Machine Manual</p>;
       case "machines-team":
