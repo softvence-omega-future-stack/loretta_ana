@@ -36,6 +36,7 @@ const NAVIGATION_CONFIG: Record<ViewType, { label: string; sidebar: SidebarConfi
           items: [
             { label: "Overview", view: "machines-overview" },
             { label: "QR Code...", view: "machines-qrcode" },
+            { label: "Create Machine", view: "machines-create" },
           ],
         },
         {

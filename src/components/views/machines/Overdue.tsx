@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Calendar } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -233,9 +232,6 @@ const DateField = ({ date, onChange }: DateFieldProps) => (
       calendarClassName="rounded-lg shadow-lg border border-gray-200"
       popperPlacement="bottom-start"
     />
-    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
-      <Calendar size={18} className="text-orange-500" />
-    </div>
   </div>
 );
 

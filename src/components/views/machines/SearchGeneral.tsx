@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Calendar, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -117,32 +117,40 @@ const SearchGeneral = () => {
           </div>
 
           {/* Volltextsuche */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Volltextsuche:
-            </label>
-            <input
-              type="text"
-              placeholder="Choose or Type manually"
-              value={fullTextSearch}
-              onChange={(e) => setFullTextSearch(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-            />
-            <div className="flex justify-end mt-2">
-              <div className="relative">
-                <select
-                  value={searchScope}
-                  onChange={(e) => setSearchScope(e.target.value)}
-                  className="px-3 py-1.5 pr-8 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 appearance-none bg-white text-sm"
-                >
-                  <option value="entry">einen der Begriffe</option>
-                  <option value="all">alle Begriffe</option>
-                  <option value="exact">exakte Phrase</option>
-                </select>
-                <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
-              </div>
-            </div>
-          </div>
+          {/* Volltextsuche */}
+<div className="flex flex-col space-y-2">
+  <label className="block text-sm font-medium text-gray-700">
+    Volltextsuche:
+  </label>
+
+  <div className="flex items-center gap-3">
+    {/* Input Field */}
+    <div className="flex-1 relative">
+      <input
+        type="text"
+        placeholder="Choose or type manually"
+        value={fullTextSearch}
+        onChange={(e) => setFullTextSearch(e.target.value)}
+        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+      />
+    </div>
+
+    {/* Select Field */}
+    <div className="relative w-52">
+      <select
+        value={searchScope}
+        onChange={(e) => setSearchScope(e.target.value)}
+        className="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white text-sm appearance-none"
+      >
+        <option value="entry">einen der Begriffe</option>
+        <option value="all">alle Begriffe</option>
+        <option value="exact">exakte Phrase</option>
+      </select>
+      <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+    </div>
+  </div>
+</div>
+
         </div>
 
         {/* Right Column */}
@@ -190,7 +198,6 @@ const SearchGeneral = () => {
       className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
       popperPlacement="bottom-start"
     />
-    <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-500 pointer-events-none" />
   </div>
 
   <span className="text-gray-600">bis</span>
@@ -204,7 +211,6 @@ const SearchGeneral = () => {
       className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
       popperPlacement="bottom-start"
     />
-    <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-500 pointer-events-none" />
   </div>
 </div>
 
