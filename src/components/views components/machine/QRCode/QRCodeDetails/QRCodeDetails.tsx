@@ -77,9 +77,6 @@ const QrCodeDetail: React.FC<QrCodeDetailProps> = ({ item, onBack }) => {
           <button className="block w-full text-left p-2 text-gray-200 hover:bg-gray-700">
             Dokument
           </button>
-          <button className="block w-full text-left p-2 text-gray-200 hover:bg-gray-700">
-            Dokument
-          </button>
         </UniversalDropdown>
       </div>
 

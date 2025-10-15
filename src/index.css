@@ -127,3 +127,32 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+
+
+
+/* Custom styles for react-datepicker */
+@import "react-datepicker/dist/react-datepicker.css";
+
+/* --- Custom Tailwind-like style for the datepicker --- */
+.react-datepicker {
+  @apply bg-white border border-gray-200 rounded-lg shadow-lg;
+}
+.react-datepicker__header {
+  @apply bg-orange-50 border-b border-gray-200 text-gray-700;
+}
+.react-datepicker__day {
+  @apply text-gray-700 hover:bg-orange-100 hover:text-orange-700 rounded-full w-8 h-8 leading-8;
+}
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  @apply bg-orange-500 text-white rounded-full;
+}
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  @apply text-sm font-semibold text-gray-800;
+}
+.react-datepicker__navigation {
+  @apply top-2;
+}
