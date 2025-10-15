@@ -32,7 +32,7 @@ const Overdue = () => {
   };
 
   return (
-    <div className="flex flex-col w-full p-7 sm:p-8 border bg-white border-gray-300 rounded-xl shadow-sm">
+    <div className="flex flex-col w-full p-7 sm:p-8 border bg-white border-gray-300 rounded-md shadow-sm">
       <h2 className="text-xl sm:text-2xl font-semibold mb-2 text-gray-800">Overdue</h2>
 
       <p className="text-sm text-gray-600 mb-3">
