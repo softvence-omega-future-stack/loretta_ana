@@ -1,3 +1,5 @@
+import TeamDirectory from "../views components/machine/Left/Team";
+import TWManual from "../views components/machine/Left/TWManual";
 import MachineOverview from "./machines/MachineOverview";
 import Overdue from "./machines/Overdue";
 import QRCode from "./machines/QRCode";
@@ -20,9 +22,9 @@ const ViewRouter = ({ path }: { path: string }) => {
       case "machines-search":
         return <SearchGeneral />;
       case "machines-manual":
-        return <p>Machine Manual</p>;
+        return <TWManual />;
       case "machines-team":
-        return <p>Machine Team</p>;
+        return <TeamDirectory />;
       case "machines-access":
         return <p>Machine Access</p>;
       case "machines-issue":
