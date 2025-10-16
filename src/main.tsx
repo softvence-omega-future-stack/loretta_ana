@@ -7,6 +7,12 @@ import { store } from "./redux/store"; // ✅ import your store
 import "./index.css";
 import routes from "./routes/Routes";
 
+import { pdfjs } from 'react-pdf';
+
+// 🔧 PDF.js worker configuration (very important!)
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+
+
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce, ToastContainer } from "react-toastify";
 
