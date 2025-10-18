@@ -1,9 +1,15 @@
-import TeamDirectory from "../views components/machine/Left/Team";
+import TeamDirectory from "../views/machines/TeamDirectory";
 import TWManual from "../views components/machine/Left/TWManual";
 import MachineOverview from "./machines/MachineOverview";
 import Overdue from "./machines/Overdue";
 import QRCode from "./machines/QRCode";
 import SearchGeneral from "./machines/SearchGeneral";
+import ProtocolOverview from "./outputlog/OutputOverview";
+import ExpensesPage from "./outputlog/Expenses";
+import FaultLogOverview from "./fault log/FaultLogOverview";
+import QueryForm from "./spare parts/Query";
+import WorklogQuery from "./work log/Query";
+import BoelsInspectionQuery from "./boels inspection/Query";
 
 const ViewRouter = ({ path }: { path: string }) => {
   if (path === "/login") return <p>Login View component</p>;
@@ -38,9 +44,9 @@ const ViewRouter = ({ path }: { path: string }) => {
 
       // Output Log
       case "output-overview":
-        return <p>Output Overview</p>;
+        return <ProtocolOverview />;
       case "output-expenses":
-        return <p>Output Expenses</p>;
+        return <ExpensesPage />;
       case "output-boels-home":
         return <p>Output Boels Home</p>;
       case "output-boels-intranet":
@@ -56,7 +62,7 @@ const ViewRouter = ({ path }: { path: string }) => {
       case "spare-wh-depot-1061":
         return <p>Spare WH Depot 1061</p>;
       case "spare-query":
-        return <p>Spare Query</p>;
+        return <QueryForm />;
       case "spare-et-petrol-engines":
         return <p>Spare ET Petrol Engines</p>;
       case "spare-sf-filter":
@@ -74,13 +80,13 @@ const ViewRouter = ({ path }: { path: string }) => {
       case "worklog-overview":
         return <p>Worklog Overview</p>;
       case "worklog-query":
-        return <p>Worklog Query</p>;
+        return <WorklogQuery />;
 
       // Boels Inspection
       case "boels-test-report":
         return <p>Boels Test Report</p>;
       case "boels-query":
-        return <p>Boels Query</p>;
+        return <BoelsInspectionQuery />;
       case "boels-home":
         return <p>Boels Home</p>;
       case "boels-intranet":
@@ -90,7 +96,7 @@ const ViewRouter = ({ path }: { path: string }) => {
 
       // Fault log
       case "faultlog-overview":
-        return <p>Faultlog Overview</p>;
+        return <FaultLogOverview />;
       case "faultlog-query":
         return <p>Faultlog Query</p>;
       case "faultlog-boels-home":
