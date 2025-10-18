@@ -1,11 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/redux/store";
-import { Phone, MapPin } from "lucide-react";
-const Pagination = React.lazy(() => import("@/components/views components/machine/Pagination"));
-
-
-interface TeamMember {
+export interface TeamMember {
   id: string;
   name: string;
   role: string;
@@ -14,7 +7,7 @@ interface TeamMember {
   address?: string;
 }
 
-const teamData: TeamMember[] = [
+export const teamData: TeamMember[] = [
   {
     id: "1",
     name: "Sero Mellnovic",
@@ -205,125 +198,3 @@ const teamData: TeamMember[] = [
     address: "Meidlinger Hauptstraße 12, 1120 Wien",
   },
 ];
-
-const CardComponent: React.FC<{ member: TeamMember }> = ({ member }) => {
-  const [hover, setHover] = useState(false);
-
-  return (
-    <div
-      className="w-58"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
-      <div
-        className={`bg-white rounded-lg shadow-sm p-6 flex flex-col items-center text-center transition-all duration-300 border-2 h-80 w-58 ${
-          hover ? "border-orange-300 shadow-lg" : "border-transparent"
-        }`}
-      >
-        <div
-          className={`rounded-full bg-gray-200 overflow-hidden border-4 border-orange-200 flex-shrink-0 transition-all duration-300 ${
-            hover ? "relative w-14 h-14 left-[-65px]" : "w-32 h-32"
-          }`}
-        >
-          <img
-            src={member.image}
-            alt={member.name}
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        <h3
-          className={`font-bold text-gray-900 transition-all duration-300 mt-2 ${
-            hover ? "text-xs text-left w-full" : "text-lg text-center"
-          }`}
-        >
-          {member.name}
-        </h3>
-
-        <p
-          className={`text-gray-600 transition-all duration-300 ${
-            hover ? "text-xs text-left w-full mt-0.5" : "text-sm text-center mt-1"
-          }`}
-        >
-          {member.role}
-        </p>
-
-        {hover && (
-          <div className="w-full mt-3 pt-3 border-t border-gray-200 space-y-2 text-left">
-            {member.phone && (
-              <div className="flex items-center gap-2">
-                <Phone size={12} className="text-orange-500 flex-shrink-0" />
-                <a
-                  href={`tel:${member.phone}`}
-                  className="text-blue-600 text-xs hover:underline truncate"
-                >
-                  {member.phone}
-                </a>
-              </div>
-            )}
-
-            {member.address && (
-              <div className="flex items-start gap-2">
-                <MapPin size={12} className="text-orange-500 flex-shrink-0 mt-0.5" />
-                <p className="text-gray-600 text-xs leading-tight">
-                  {member.address}
-                </p>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-const TeamDirectory: React.FC = () => {
-  const globalSearchTerm = useSelector((state: RootState) => state.search.term?.trim().toLowerCase() || "");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 18;
-
-  const filteredTeam = teamData.filter(
-    (member) =>
-      !globalSearchTerm ||
-      member.name.toLowerCase().includes(globalSearchTerm) ||
-      member.role.toLowerCase().includes(globalSearchTerm)
-  );
-
-  const totalPages = Math.ceil(filteredTeam.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentMembers = filteredTeam.slice(startIndex, startIndex + itemsPerPage);
-
-  useEffect(() => {
-    setCurrentPage(1); // reset page when search changes
-  }, [globalSearchTerm]);
-
-  return (
-    <div className="min-h-screen w-full">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Our Team</h1>
-
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-6 sm:gap-8 justify-items-center">
-        {currentMembers.map((member) => (
-          <CardComponent key={member.id} member={member} />
-        ))}
-
-        {filteredTeam.length === 0 && (
-          <p className="text-gray-500 col-span-full text-center">
-            No team members found.
-          </p>
-        )}
-      </div>
-
-      {filteredTeam.length > 0 && totalPages > 1 && (
-        <div className="mt-8 flex justify-center">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-          />
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default TeamDirectory;
