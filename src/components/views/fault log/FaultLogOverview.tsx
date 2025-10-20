@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Truck } from "lucide-react";
+import type { RootState } from "@/redux/store";
+import Pagination from "@/components/views components/machine/Pagination";
 
 // ==========================================
 // Types
@@ -104,7 +107,11 @@ const ExpenseRow: React.FC<ExpenseRowProps> = ({ item }) => {
 // Main FaultLogOverview Component
 // ==========================================
 const FaultLogOverview: React.FC = () => {
-  const [expenses] = useState<ExpenseItem[]>([
+  const searchTerm = useSelector((state: RootState) => state.search.term);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+
+  const allExpenses: ExpenseItem[] = [
     {
       id: "1",
       date: "02.06.2025",
@@ -315,18 +322,65 @@ const FaultLogOverview: React.FC = () => {
       bocsar: "Bocsar",
       kst: "int"
     }
-  ]);
+  ];
+
+  // Filter logic
+  const filteredExpenses = allExpenses.filter(
+    (item) =>
+      item.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.number.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.bocsar.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.kst.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredExpenses.length / itemsPerPage);
+
+  const getCurrentPageItems = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredExpenses.slice(startIndex, endIndex);
+  };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
-    <div className="min-h-screen">
-      <div className="w-full">
-        {/* Results List */}
-        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-          {expenses.map((expense) => (
+    <div className="flex flex-col min-h-screen w-full p-7 sm:p-8 border bg-white border-gray-300 rounded-md">
+      <h2 className="text-[1.75rem] font-bold mb-6">Fault Log Record</h2>
+      <hr className="border-gray-300 mb-6" />
+
+      {/* Results List */}
+      <div className="w-full bg-white border border-gray-200 rounded-lg overflow-hidden mb-6">
+        {getCurrentPageItems().length > 0 ? (
+          getCurrentPageItems().map((expense) => (
             <ExpenseRow key={expense.id} item={expense} />
-          ))}
-        </div>
+          ))
+        ) : (
+          <p className="text-gray-500 text-center py-6">
+            No fault logs found for "{searchTerm}"
+          </p>
+        )}
       </div>
+
+      {/* Pagination */}
+      {filteredExpenses.length > 0 && (
+        <div className="w-full flex justify-center">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -10,6 +10,11 @@ import FaultLogOverview from "./fault log/FaultLogOverview";
 import QueryForm from "./spare parts/Query";
 import WorklogQuery from "./work log/Query";
 import BoelsInspectionQuery from "./boels inspection/Query";
+import SparePartsOverview from "./spare parts/SparePartsOverview";
+import WorkLogOverview from "./work log/WorkLogOverview";
+import TestReport from "./boels inspection/TestReport";
+import Warehouse578 from "./spare parts/Warehouse578";
+import Warehouse1061 from "./spare parts/Warehouse1061";
 
 const ViewRouter = ({ path }: { path: string }) => {
   if (path === "/login") return <p>Login View component</p>;
@@ -56,11 +61,11 @@ const ViewRouter = ({ path }: { path: string }) => {
 
       // Spare Parts
       case "spare-overview":
-        return <p>Spare Overview</p>;
+        return <SparePartsOverview />;
       case "spare-wh-depot-578":
-        return <p>Spare WH Depot 578</p>;
+        return <Warehouse578 />;
       case "spare-wh-depot-1061":
-        return <p>Spare WH Depot 1061</p>;
+        return <Warehouse1061 />;
       case "spare-query":
         return <QueryForm />;
       case "spare-et-petrol-engines":
@@ -78,13 +83,13 @@ const ViewRouter = ({ path }: { path: string }) => {
 
       // Work log
       case "worklog-overview":
-        return <p>Worklog Overview</p>;
+        return <WorkLogOverview />;
       case "worklog-query":
         return <WorklogQuery />;
 
       // Boels Inspection
       case "boels-test-report":
-        return <p>Boels Test Report</p>;
+        return <TestReport />;
       case "boels-query":
         return <BoelsInspectionQuery />;
       case "boels-home":
